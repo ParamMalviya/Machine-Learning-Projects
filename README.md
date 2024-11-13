@@ -110,7 +110,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 Feel free to reach out with questions, suggestions, or contributions!
-```
 
 ### Key Elements:
 1. **Project Overview**: Brief explanation of what the app does (predicts weight from height).
