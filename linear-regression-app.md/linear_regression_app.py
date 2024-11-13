@@ -4,50 +4,49 @@ from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error
 
+# Sample Data - Directly embedding the height-weight dataset
+data = pd.DataFrame({
+    'Height': [60, 62, 64, 66, 68, 70, 72, 74, 76, 78],
+    'Weight': [115, 120, 125, 130, 135, 140, 145, 150, 155, 160]
+})
+
 # Title of the app
-st.title("Linear Regression Model with Streamlit")
+st.title("Simple Linear Regression Model")
 
-# Step 1: Uploading the Dataset
-st.sidebar.header("Step 1: Upload Data")
-uploaded_file = st.sidebar.file_uploader("Upload your CSV file", type=["csv"])
+# Displaying the dataset
+st.write("### Dataset: Height vs Weight")
+st.write(data)
 
-if uploaded_file:
-    data = pd.read_csv(uploaded_file)
-    st.write("Dataset:")
-    st.write(data)
+# Feature and target setup
+X = data[['Height']]  # Features (independent variable)
+y = data['Weight']    # Target (dependent variable)
 
-    # Step 2: Select Features and Target Variable
-    st.sidebar.header("Step 2: Select Features and Target")
-    feature_columns = st.sidebar.multiselect("Select Feature Column(s)", data.columns)
-    target_column = st.sidebar.selectbox("Select Target Column", data.columns)
+# Splitting the dataset into train and test sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-    if feature_columns and target_column:
-        X = data[feature_columns]
-        y = data[target_column]
-        
-        # Splitting data into train and test sets
-        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-        
-        # Step 3: Train the Model
-        model = LinearRegression()
-        model.fit(X_train, y_train)
-        
-        # Making predictions
-        predictions = model.predict(X_test)
-        
-        # Calculating Mean Squared Error
-        mse = mean_squared_error(y_test, predictions)
-        
-        # Display the results
-        st.header("Results")
-        st.write(f"Mean Squared Error: {mse}")
-        st.write("Predictions vs Actual:")
-        result_df = pd.DataFrame({"Actual": y_test, "Predicted": predictions})
-        st.write(result_df)
+# Model training
+model = LinearRegression()
+model.fit(X_train, y_train)
 
-        # Visualize the predictions vs. actual values
-        st.line_chart(result_df)
-    else:
-        st.warning("Please select both feature(s) and target column.")
-else:
-    st.info("Please upload a CSV file to proceed.")
+# Making predictions
+predictions = model.predict(X_test)
+
+# Calculating Mean Squared Error
+mse = mean_squared_error(y_test, predictions)
+
+# Displaying Results
+st.write("### Model Performance")
+st.write(f"Mean Squared Error: {mse}")
+
+# Showing predictions vs actual values
+st.write("### Predictions vs Actual Values")
+result_df = pd.DataFrame({"Actual": y_test.values, "Predicted": predictions})
+st.write(result_df)
+
+# Plotting predictions vs actual values
+st.line_chart(result_df)
+
+# Optional: Displaying model's coefficient and intercept
+st.write("### Model Coefficients")
+st.write(f"Intercept: {model.intercept_}")
+st.write(f"Coefficient: {model.coef_[0]}")
