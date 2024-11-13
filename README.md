@@ -1,7 +1,3 @@
-Here’s a `README.md` template for your **Height-Weight Linear Regression** project, inspired by the style and structure you shared. This includes the details about the app, the repository, and the live Streamlit app link.
-
-### `README.md`
-
 ```markdown
 # Machine Learning - Height and Weight Linear Regression
 
