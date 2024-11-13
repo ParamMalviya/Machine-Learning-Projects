@@ -1,4 +1,3 @@
-```markdown
 # Machine Learning - Height and Weight Linear Regression
 
 This project demonstrates a simple **Linear Regression** model to predict **Weight** based on **Height** using a sample dataset. The app provides an interactive way to visualize the relationship between height and weight and uses linear regression to predict the weight for any given height.
